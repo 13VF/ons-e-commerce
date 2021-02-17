@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <Catalog />
+    <Cart />
+    <CartTotal />
   </div>
 </template>
 
