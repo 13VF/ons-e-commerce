@@ -10,13 +10,12 @@ import Vue from 'vue'
 export default Vue.extend({})
 </script>
 
-<style>
+<style scoped>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
+  padding: 16px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <Header />
-    <Nuxt />
+  <div class="layoutWrapper">
+    <div class="upper">
+      <Header />
+      <Nuxt />
+    </div>
     <Footer />
   </div>
 </template>
@@ -32,33 +34,19 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+</style>
+<style scoped>
+.layoutWrapper {
+  min-height: 100vh;
+  min-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.upper {
+  width: 100%;
+  max-width: 1448px;
 }
 </style>
