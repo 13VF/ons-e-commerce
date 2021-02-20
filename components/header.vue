@@ -4,16 +4,23 @@
       <img class="logo" src="/svg/ozon23.svg" alt="">
     </NuxtLink>
     <NuxtLink class="cartButton" to="/cart">
-      Корзина <div class="counter">13</div>
+      Корзина <div class="counter">{{ counter }}</div>
     </NuxtLink>
   </div>
 </template>
 
 <script lang="ts">
+import { mapState } from 'vuex';
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'Header',
+
+  computed: {
+    ...mapState({
+      counter: state => state.counter
+    })
+  }
 })
 </script>
 

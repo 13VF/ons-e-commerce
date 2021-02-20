@@ -1,4 +1,6 @@
 {
+  "key": "gpus",
+  "title": "Популярные видеокарты",
   "products": [
     {
       "id": 205213585,
@@ -26,7 +28,7 @@
       "id": 200750095,
       "title": "Видеокарта nVidia GeForce GTX1660 Super Palit GamingPro OC PCI-E 6144Mb (NE6166SS18J9-1160A)",
       "description": "",
-      "price": "",
+      "price": 12512312,
       "new_price": "",
       "image": "https://cdn1.ozone.ru/s3/multimedia-o/wc1200/6025178460.jpg",
       "available": 0,

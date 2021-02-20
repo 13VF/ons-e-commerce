@@ -1,16 +1,20 @@
 <template>
   <div class="item">
-    <div class="imageWrapper">
-      <img :src="image" alt="" class="image">
+    <div class="upper">
+      <div class="imageWrapper">
+        <img :src="image" alt="" class="image">
+      </div>
+      <div class="price">{{ price | priceFilter }}</div>
+      <h4 class="title">{{ title | shortTitleFilter }}</h4>
     </div>
-    <div class="price">{{ price }}</div>
-    <h4 class="title">{{ title }}</h4>
-    <button>Добавить в корзину</button>
+
+    <button @click="anotherAddToCart">Добавить в корзину</button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations } from 'vuex';
 
 export default Vue.extend({
   name: 'CatalogListItem',
@@ -35,6 +39,40 @@ export default Vue.extend({
     description(): string {
       return this.item.description;
     }
+  },
+
+  filters: {
+    priceFilter(value: number): string {
+      const ret = [];
+      const chars = String(value).split('').reverse();
+
+      for (let i = 1; i <= chars.length; i++) {
+        ret.push(chars[i - 1]);
+
+        if ((i % 3 === 0) && chars[i]) {  
+          ret.push(' ');
+        }
+      }
+
+      return `${ret.reverse().join('')} ₽`;
+    },
+
+    shortTitleFilter(title: string): string {
+      return title.length > 60
+        ? `${title.substring(0, 57)}...`
+        : title;
+    }
+  },
+
+  methods: {
+    anotherAddToCart() {
+      this.$store.commit('increment');
+    },
+
+    ...mapMutations({
+      addToCart: 'increment',
+      addToCart2: 'increment'
+    })
   }
 })
 </script>
@@ -46,7 +84,13 @@ export default Vue.extend({
   height: 400px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 8px;
+}
+
+.upper {
+  display: flex;
+  flex-direction: column;
 }
 
 .imageWrapper {
@@ -60,6 +104,11 @@ export default Vue.extend({
 .image {
   max-width: 250px;
   max-height: 250px;
+}
+
+.price {
+  margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .title {

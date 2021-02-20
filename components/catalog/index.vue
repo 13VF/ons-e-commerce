@@ -1,11 +1,15 @@
 <template>
   <div class="catalog">
     <div class="column modFirst">
-      <CatalogCategories />
+      <CatalogCategories
+        :categories="categoriesToSwitch"
+
+        @change="onCategoryChange"
+      />
     </div>
     <div class="column modSecond">
       <CatalogList
-        :items="booksMock.products"
+        :activeCategory="activeCategoryData"
       />
     </div>
   </div>
@@ -21,9 +25,35 @@ export default Vue.extend({
 
   data() {
     return {
-      booksMock,
-      gpusMock
+      categories: [
+        booksMock,
+        gpusMock
+      ],
+      activeCategory: undefined
     };
+  },
+
+  methods: {
+    onCategoryChange(categoryKey: string) {
+      this.activeCategory = categoryKey;
+    }
+  },
+
+  computed: {
+    categoriesToSwitch() {
+      return this.categories.map( ({key, title}) => ({
+        key,
+        title
+      }));
+    },
+
+    activeCategoryData() {
+      if (!this.activeCategory) {
+        return this.categories[0];
+      }
+
+      return this.categories.find(category => category.key === this.activeCategory);
+    }
   }
 })
 </script>
@@ -39,6 +69,7 @@ export default Vue.extend({
 }
 
 .column.modFirst {
-  max-width: 200px;
+  max-width: 250px;
+  padding-right: 25px;
 }
 </style>

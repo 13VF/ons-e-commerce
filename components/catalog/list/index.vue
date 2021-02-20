@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1 class="title">Категория товаров 1:</h1>
+    <h1 class="title">{{ title + ':' }}</h1>
     <div class="list">
       <CatalogListItem
         v-for="item of items"
@@ -18,9 +18,19 @@ export default Vue.extend({
   name: 'CatalogList',
 
   props: {
-    items: {
-      type: Array,
-      default: () => []
+    activeCategory: {
+      type: Object,
+      required: true
+    }
+  },
+
+  computed: {
+    title() {
+      return this.activeCategory.title;
+    },
+
+    items() {
+      return this.activeCategory.products;
     }
   }
 })
