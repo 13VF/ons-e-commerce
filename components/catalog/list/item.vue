@@ -8,16 +8,20 @@
       <h4 class="title">{{ title | shortTitleFilter }}</h4>
     </div>
 
-    <button @click="anotherAddToCart">Добавить в корзину</button>
+    <button @click="addToCart">{{ buttonText }}</button>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapMutations } from 'vuex';
+import Vue from 'vue';
+import Base from '../../base.vue';
+import { mapState } from 'vuex';
+import { ACTION_TYPES } from '../../../store/cart/index';
 
 export default Vue.extend({
   name: 'CatalogListItem',
+
+  mixins: [Base],
 
   props: {
     item: {
@@ -27,6 +31,9 @@ export default Vue.extend({
   },
 
   computed: {
+    ...mapState('cart', {
+      cartItems: state => (state as any).items
+    }),
     image(): string {
       return this.item.image;
     },
@@ -38,6 +45,17 @@ export default Vue.extend({
     },
     description(): string {
       return this.item.description;
+    },
+    buttonText(): string {
+      const isAdded = this.cartItems.hasOwnProperty(this.item.id);
+
+      return isAdded ? 'Добавлено' : 'Добавить в корзину';
+    }
+  },
+
+  watch: {
+    buttonText(newValue, oldValue) {
+      console.log(newValue, oldValue);
     }
   },
 
@@ -65,14 +83,10 @@ export default Vue.extend({
   },
 
   methods: {
-    anotherAddToCart() {
-      this.$store.commit('increment');
-    },
-
-    ...mapMutations({
-      addToCart: 'increment',
-      addToCart2: 'increment'
-    })
+    addToCart() {
+      this.$store.dispatch(`cart/${ACTION_TYPES.ADD_ITEM}`, this.item);
+      this.sendAnalytics('add to cart');
+    }
   }
 })
 </script>

@@ -2,11 +2,14 @@
   <div class="wrapper">
     <h1 class="title">{{ title + ':' }}</h1>
     <div class="list">
-      <CatalogListItem
+      <CatalogListItemWrapper
         v-for="item of items"
         :key="item.id"
-        :item="item"
-      />
+      >
+        <CatalogListItem
+          :item="item"
+        />
+      </CatalogListItemWrapper>
     </div>
   </div>
 </template>

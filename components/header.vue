@@ -10,16 +10,16 @@
 </template>
 
 <script lang="ts">
-import { mapState } from 'vuex';
-import Vue from 'vue'
+import { mapGetters } from 'vuex';
+import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Header',
 
   computed: {
-    ...mapState({
-      counter: state => state.counter
-    })
+    ...mapGetters('cart', [
+      'counter'
+    ])
   }
 })
 </script>
